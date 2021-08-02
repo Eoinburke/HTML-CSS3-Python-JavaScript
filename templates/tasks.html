@@ -2,13 +2,28 @@
 {% block content %}
 
     <h2>I'm extending the base template!</h2>
+    
+{% for task in tasks %}
 
-    {% for task in tasks %}
-        {{ task.task_name }}<br>
-        {{ task.category_name }}<br>
-        {{ task.task_description }}<br>
-        {{ task.is_urgent }}<br>
-        {{ task.due_date }}<br>
-    {% endfor %}
+ <div class="row">
+    <div class="col s12 m7">
+      <div class="card">
+          {{ task.category_name }}
+        <div class="card-image">
+          <img src="{{ task.image_url }}">
+          <span class="card-title">{{ task.task_name }}</span>
+        </div>
+        <div class="card-content">
+            <p>{{ task.task_ingredients }}</p>
+    
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
 
 {% endblock %}
