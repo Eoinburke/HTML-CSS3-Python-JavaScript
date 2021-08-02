@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h2>I'm extending the base template!</h2>
+    <h3>Why don't you take a look at our tastsy treats!</h3>
     
 {% for task in tasks %}
 
  <div class="row">
-    <div class="col s12 m7">
+    <div class="col s4 m4">
       <div class="card">
           {{ task.category_name }}
         <div class="card-image">
@@ -17,6 +17,7 @@
             <p>{{ task.task_ingredients }}</p>
     
         </div>
+
         <div class="card-action">
           <a href="#">This is a link</a>
         </div>
