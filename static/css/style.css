@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
+
 * {
   box-sizing: border-box;
+}
+
+.brand-logo {
+    font-size: xx-large;
+    font-family: 'Style Script', cursive;
+    
 }
 
 .text-shadow {
@@ -16,9 +24,34 @@
  display: inline-block;
 }
 
-.social {
-  width: 100%;
-font-size: 4.5em;
-padding: 3rem;
-}
+ body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
 
+  main {
+    flex: 1 0 auto;
+  }
+
+  .page-footer {
+      background-color: black;
+  }
+
+  .fa-facebook:hover {
+      color: blue;
+      font-size: 2em;
+      margin: 3px;
+  }
+
+  .fa-instagram:hover {
+      color: #f09433;
+      font-size: 2em;
+      margin: 3px;
+  }
+
+  .fa-youtube:hover {
+      color: red;
+      font-size: 2em;
+      margin: 3px;
+  }
