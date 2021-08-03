@@ -1,30 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3>Why don't you take a look at our tastsy treats!</h3>
-    
-{% for task in tasks %}
+<h3>Why don't you take a look at our tastsy treats!</h3>
 
- <div class="row">
+
+
+<div class="row">
+    {% for task in tasks %}
     <div class="col s4 m4">
-      <div class="card">
-          {{ task.category_name }}
-        <div class="card-image">
-          <img src="{{ task.image_url }}">
-          <span class="card-title">{{ task.task_name }}</span>
-        </div>
-        <div class="card-content">
-            <p>{{ task.task_ingredients }}</p>
-    
-        </div>
+        <div class="card">
+            {{ task.category_name }}
+            <div class="card-image">
+                <img src="{{ task.image_url }}">
+                <span class="card-title">{{ task.task_name }}</span>
+            </div>
+            <div class="card-content">
+                <p>{{ task.task_ingredients }}</p>
 
-        <div class="card-action">
-          <a href="#">This is a link</a>
+            </div>
+
+            <div class="card-action">
+                <a href="#">This is a link</a>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+    {% endfor %}
+</div>
 
-{% endfor %}
+
+
+
 
 {% endblock %}
