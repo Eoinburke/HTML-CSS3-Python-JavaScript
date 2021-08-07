@@ -105,6 +105,16 @@ def add_task():
     return render_template("add_task.html", categories=categories)
 
 
+@app.route('/create', methods=['POST'])
+def create():
+    if 'profile_image' in request.files:
+        profile_image = request.files['profile_image']
+        mongo.save_file(profile_image.filename, profile_image)
+        mongo.db.users.insert({'username' : request.form.get('username'), 'profile_image_name' : profile_image.filename})
+
+    return 'Done'
+
+
 @app.route("/recipe")
 def recipe():
     return render_template("recipe.html")

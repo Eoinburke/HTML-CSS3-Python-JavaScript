@@ -23,6 +23,13 @@ $(document).ready(function () {
         }
     });
 
+    var preparationField = $(".preparation").length;
+    /* add new cloned item */
+    $("#add_step").on("click", function () {
+        $(".new-step:first").clone().insertBefore("#add_step").find("input[type='text'], select, textarea").val("");
+        /* increase counter so original direction is never removed */
+       preparationField += 1;
+    });
 
 
 

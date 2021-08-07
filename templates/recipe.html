@@ -51,16 +51,22 @@
             </div>
         </div>
     </div>
-           <div class="row">
+
+    <form method="POST" action="/create" enctype="multipart/form-data">
+    <input type="text" name="username">
+    <input type="file" name="profile_image">
+    <input type="submit">
+    </form>
+     <!--       <div class="row">
         <div class="col s10 offset-s1">
             <div class="input-field ">
                 <i class="fas fa-camera material-icons prefix"></i>
-                <input id="image_url" name="image_url" class="validate" type="url" minlength="15"
+                <input id="profile_image" name="username" class="validate" type="text" minlength="15"
                     placeholder="Recipe Image URL" pattern="https?://.+">
-                <label for="image_url">Image Url</label>
+                <label for="profile_image">Image Url</label>
             </div>
         </div>
-    </div>
+    </div> -->
         <!--Submit button-->
     <div class="row col s10 offset-s1">
         <button class="btn waves-effect waves-light btn-small grey darken-4" type="submit" name="action">Submit</button>
