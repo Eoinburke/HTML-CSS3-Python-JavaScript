@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
 
+
 * {
   box-sizing: border-box;
+}
+
+h3 {
+    font-family: 'Style Script', cursive;
 }
 
 .brand-logo {
@@ -16,6 +21,10 @@
 
 .flashes h4 {
     line-height: 2;
+}
+
+.card-image {
+    display: inline;
 }
 
 /* Create three equal columns that sits next to each other */
