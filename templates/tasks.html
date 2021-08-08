@@ -15,19 +15,10 @@
                 <span class="card-title">{{ task.task_name }}</span>
             </div>
             <div class="card-action">
-                <a href="">This is a link</a>
+                <a href="{{ url_for('view_task', task_id=task._id) }}">This is a link</a>
             </div>
         </div>
     </div>
-   
      {% endfor %}
 </div>
-
-
-
-         
-
-
-
-
 {% endblock %}
