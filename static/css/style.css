@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
 * {
   box-sizing: border-box;
 }
 
 h3 {
-    font-family: 'Style Script', cursive;
+    font-family: 'Caveat', cursive;
+    padding-left: 110px;
 }
 
 .brand-logo {
@@ -28,11 +29,15 @@ h3 {
 }
 
 /* Create three equal columns that sits next to each other */
-.card-image {
-
- display: inline-block;
+.card .card-image img {
+height: 200px;
+width: 280px;
 }
 
+.card .card-image .card-title {
+    position: relative;
+    color: black;
+}
  body {
     display: flex;
     min-height: 100vh;

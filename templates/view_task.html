@@ -4,23 +4,18 @@
     <div class="col s10 offset-s2 m5 offset-m1 left-align">
         <div>
             <p> <i class="fas fa-clock icon-color"></i> Cooking Time:
-                <span>{{task.category_name}}</span> min
+                <span>{{task.task_time}}</span> 
             </p>
         </div>
         <div>
             <p> <i class="fas fa-fire icon-color"> </i> Difficulty:
-                <span>{{task.task_name}}</span>
+                <span>{{task.task_difficulty}}</span>
             </p>
         </div>
     </div>
     <div class="col s10 offset-s2 m5 left-align">
         <div>
-            <p> <i class="fas fa-utensils icon-color"></i> Category: <span class="">{{task.task_name}}</span>
-            </p>
-        </div>
-        <div>
-            <p> <i class="fas fa-users icon-color"></i> Serves:
-                <span class="">{{task.task_name}}</span>
+            <p> <i class="fas fa-utensils icon-color"></i> Category: <span class="">{{task.category_name}}</span>
             </p>
         </div>
     </div>
@@ -28,9 +23,6 @@
     <div class="row">
         <div class="col s11 offset-s1 recipe-description">
             <p><span class="">{{ task.task_prep }}</span></p>
-        </div>
-        <div class="col s11 offset-s1 oneline">
-            <p><i class="fas fa-exclamation-circle red-text"></i> Contains:</p>
         </div>
 
     <section id="Ingredients-Preparation">
@@ -58,6 +50,7 @@
                     <div class="col s12">
                         <h5 class="center">Preparation</h5>
                         <br>
+                        
                         <ol id="preparation-list">
                             {% for prep in task.task_prep %}
                             <li>
@@ -65,6 +58,7 @@
                             </li>
                             {% endfor %}
                         </ol>
+
                     </div>
                 </div>
             </div>
