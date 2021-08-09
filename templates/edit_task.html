@@ -1,71 +1,103 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends 'base.html'%} {% block content %}
 
-    <h3 class="light-blue-text text-darken-4 center-align">Add Task</h3>
+<section class="container">
+    <div class="row center">
+        <h3>Edit Your Recipe</h3>
+    </div>
+    <div class="row">
+        <form action="{{ url_for('edit_task', task_id=task._id) }}" method="POST" class="col s12">
+            <!-- Author -->
+          
+            <!-- recipe name -->
+            <div class="row">
+                <div class="input-field col s10 offset-s1">
+                    <h6><strong>Recipe Name:</strong></h6>
+                    <input id="recipe_name" name="recipe_name" type="text" class="validate" value="{{ task.task_name }}" minlength="3" maxlength="30" data-length="30" placeholder="Recipe Name" required="">
+                </div>
+            </div>
+            <!-- Description -->
+            <div class="row">
+                <div class="input-field col s10 offset-s1">
+                    <h6><strong>Description:</strong></h6>
+                    <textarea id="description" placeholder="Description of your Recipe" name="description" class="materialize-textarea" inlength="20" maxlength="500" data-length="500" required>{{ task.task_discription }}</textarea>
+                </div>
+            </div>
+                
+                    <!-- Cooking Time -->
+                    <div class="col s10 offset-s1 m6 l4">
+                        <div class="input-field">
+                            <i class="fas fa-clock material-icons prefix"></i>
+                            <input id="cooking_time" name="cooking_time" type="number" placeholder="Time in minutes" value="{{ task.task_time }}" class="validate" min="1">
+                            <label>Cooking Time(min)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+            <!--Image Url-->
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="input-field ">
+                        <i class="fas fa-camera material-icons prefix"></i> {% if task.image_url %}
+                        <input id="image_url" name="image_url" class="validate" type="url" minlength="15" value="{{ task.image_url }}" placeholder="Recipe Photo URL"> {% else %}
+                        <input id="image_url" name="image_url" class="validate" type="url" minlength="15" placeholder="Recipe Image URL" pattern="https?://.+"> {% endif %}
+                        <label for="image_url">Image Url</label>
+                    </div>
+                </div>
+            </div>
+            <!--Ingredients-->
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="card background">
+                        <div class="card-content">
+                            <span class="card-title center">Ingredients</span>
 
-    <div class="row card-panel grey lighten-5">
-        <form class="col s12" method="POST" action="{{ url_for('add_task') }}">
-            <!-- category selection -->
-			<div class="row">
-				<div class="input-field col s12">
-                    <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
-					<select id="category_name" name="category_name" class="validate" required>
-                        <option value="" disabled selected>Choose Category</option>
-                        {% for category in categories %}
-                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
-                        {% endfor %}
-                    </select>
-					<label for="category_name">Task Category</label>
-				</div>
-			</div>
-            <!-- task name -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="task_name" name="task_name" minlength="5" maxlength="50"
-                        type="text" class="validate" required>
-                    <label for="task_name">Task Name</label>
+                            <div class="addIngredient new-ingredient ingredient">
+                                <div class="input-field whites-4">
+                                    {% for ingredient in task.task_ingredients %}
+                                    <textarea id="ingredients" placeholder="200g Butter" name="ingredients[]" class="materialize-textarea ingredients validate" minlength="3" maxlength="200" required>{{ ingredient }}</textarea>
+                                 
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- add button -->
+                            <a id="add_ingredient" class="btn waves-effect waves-light light-green"><i class="material-icons">add</i></a>
+                            <!-- Remove button -->
+                            <a id="remove_ingredient" class="btn waves-effect waves-light red lighten-2"><i class="fas fa-minus"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- task description -->
+            <!--Preparation-->
             <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>
-                    <textarea id="task_description" name="task_description" minlength="5"
-                        maxlength="200" class="materialize-textarea validate" required></textarea>
-                    <label for="task_description">Task Description</label>
+                <div class="col s10 offset-s1">
+                    <div class="card background">
+                        <div class="card-content">
+                            <span class="card-title center">Preparation</span>
+                            <div class="addpreparation preparation new-step">
+                                <div class="input-field whites-4">
+                                    {% for prep in task.task_prep %}
+                                    <textarea id="preparation" name="preparation[]" class="preparation validate materialize-textarea" minlength="5" maxlength="500" required>{{ task.task_prep }}</textarea>
+                                    {% endfor %}
+                                   
+                                </div>
+                            </div>
+                            <!-- add button -->
+                            <a id="add_step" class="btn waves-effect waves-light light-green"><i class="material-icons">add</i></a>
+                            <!-- removebutton -->
+                            <a id="remove_step" class="btn waves-effect waves-light red lighten-2"><i class="fas fa-minus"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- due date picker -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-calendar-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
-                    <label for="due_date">Due Date</label>
-                </div>
-            </div>
-            <!-- is urgent toggle -->
-			<div class="row">
-				<div class="input-field col s12">
-					<div class="switch">
-                        <i class="fas fa-exclamation-circle prefix light-blue-text text-darken-4"></i>
-						<label for="is_urgent">
-                            <input type="checkbox" id="is_urgent" name="is_urgent">
-                            <span class="lever"></span>
-                            Is Urgent
-                        </label>
-					</div>
-				</div>
-			</div>
-            <!-- submit button -->
-            <div class="row">
-                <div class="col s12 center-align">
-                    <button type="submit" class="btn-large light-blue darken-1 text-shadow">
-                        Add Task <i class="fas fa-plus-square right"></i>
-                    </button>
-                </div>
+            <!--Submit button-->
+            <div class="row col s10 offset-s1">
+                <button class="btn waves-effect waves-light btn-small grey darken-4" type="submit" name="action">Save Changes</button>
+                 <a class="btn  waves-effect btn-small grey darken-4 cancel-form">Cancel</a>
             </div>
         </form>
     </div>
+</section>
 
 {% endblock %}
