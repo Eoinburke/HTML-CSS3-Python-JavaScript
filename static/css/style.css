@@ -16,6 +16,10 @@ h3 {
     
 }
 
+nav.nav-extended .nav-wrapper {
+    background: #29b6f6;
+}
+
 .text-shadow {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -24,14 +28,11 @@ h3 {
     line-height: 2;
 }
 
-.card-image {
-    display: inline;
-}
-
 /* Create three equal columns that sits next to each other */
 .card .card-image img {
 height: 200px;
-width: 280px;
+/* width: 280px; */
+/* width: -webkit-fill-available; */
 }
 
 .card .card-image .card-title {
@@ -49,7 +50,7 @@ width: 280px;
   }
 
   .page-footer {
-      background-color:lightblue;
+      background-color: black;
   }
 
   .fa-facebook:hover {
@@ -70,14 +71,10 @@ width: 280px;
       margin: 3px;
   }
 
-  @media only screen and (min-width:350px) {
-      .card .card-image img {
-          display: inline;
-          width: 150px;
-          height: 50px;
-          padding: 30px;
-      }
+  @media (max-width: 600px) {
+   .card-title {
+    font-size: 10px;
+}
 
-     .card .card-image .card-title {
-         font-size: 10px;
-  }
+}
+
