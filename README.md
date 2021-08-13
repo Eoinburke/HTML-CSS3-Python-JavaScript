@@ -89,9 +89,11 @@ The database is made up of the following collections
       id: <ObjectId>
       category_name: <string>
       task_name: <string>
-      task_ingredients: <string>
+      task_ingredients: <Array>
       image_url:<string>
-      task_prep: <string>
+      task_prep: <Array>
+      task_difficulty: <String>
+      task_time: <String>
 
 **users**
 
@@ -100,6 +102,13 @@ The database is made up of the following collections
        username: <string>
       
       password: <string>
+
+**categories**
+    
+    id: <ObjectID()>
+    
+    category_name: <String>
+
 
 #### Typography
 
@@ -113,6 +122,6 @@ I used the following fonts i got from [Google fonts](https://fonts.google.com/)
 
 ### Wireframes
 
-I used [Balsamiq Wireframes](https://balsamiq.com/) for the planning process for this project.
+I used [Whimsical](https://whimsical.com/wireframes) for the planning process for this project.
 
-You can go [here](#) to see my wireframes!
+You can go [here](https://whimsical.com/the-beginning-ABP7BxZPnN9v2GrPq76YwE) to see my wireframes!

@@ -1,8 +1,8 @@
-  <h3 class="light-blue-text text-darken-4 center-align">Add Task</h3>
+ {% extends "base.html" %}
+{% block content %}
 
-    <div class="row card-panel grey lighten-5">
-        <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
-            <!-- category selection -->
+<section>
+    <!-- category selection -->
 			<div class="row">
 				<div class="input-field col s12">
                     <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
@@ -15,43 +15,55 @@
 					<label for="category_name">Recipe Category</label>
 				</div>
             </div>
-                <!-- task description -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>
-                    <textarea id="task_description" name="task_description" minlength="5"
-                        maxlength="200" class="materialize-textarea validate" required></textarea>
-                    <label for="task_description">Description</label>
+    <!--Ingredients-->
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="card background">
+                <div class="card-content">
+                    <span class="card-title center">Ingredients</span>
+
+                    <div class="addIngredient new-ingredient ingredient">
+                        <div class="input-field whites-4">
+                            <input id="ingredients" type="text" placeholder="1 tomato, chopped" name="ingredients[]"
+                                class="ingredients validate" minlength="1" maxlength="100" required>
+                        </div>
+                    </div>
+
+                    <!-- add button -->
+                    <a id="add_ingredient" class="btn waves-effect waves-light light-green"><i
+                            class="material-icons">add</i></a>
+                    <!-- Remove button -->
+                    <a id="remove_ingredient" class="btn waves-effect waves-light red lighten-2"><i
+                            class="fas fa-minus"></i></a>
                 </div>
             </div>
-              <!-- task name -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="task_name" name="task_name" minlength="5" maxlength="50"
-                        type="text" class="validate" required>
-                    <label for="task_name">Recipe Name</label>
+        </div>
+    </div>
+    <!--Preparation-->
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="card background">
+                <div class="card-content">
+                    <span class="card-title center">Preparation</span>
+
+                    <div class="addpreparation preparation new-step">
+                        <div class="input-field whites-4">
+                            <input id="preparation" type="text" placeholder="List preparation method one per line"
+                                name="preparation[]" class="preparation validate" minlength="3"
+                                maxlength="600"></textarea>
+                        </div>
+                    </div>
+                    <!-- add button -->
+                    <a id="add_step" class="btn waves-effect waves-light light-green"><i
+                            class="material-icons">add</i></a>
+                    <!-- remove button -->
+                    <a id="remove_step" class="btn waves-effect waves-light red lighten-2"><i
+                            class="fas fa-minus"></i></a>
                 </div>
             </div>
-                   <!-- Ingredients -->
-	        <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>
-                    <textarea id="task_ingredients" name="task_ingredients" minlength="5"
-                        maxlength="200" class="materialize-textarea validate" required></textarea>
-                    <label for="{{task_ingredients}}">Ingredients</label>
-                </div>
-            </div>
-                 <!-- Preperation -->
-	        <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>
-                    <textarea id="task_prep" name="task_pre" minlength="5"
-                        maxlength="200" class="materialize-textarea validate" required></textarea>
-                    <label for="{{task_prep}}">Preperation</label>
-                </div>
-            </div>
-               <!--Image Url-->
+        </div>
+    </div>
+           <!--Image Url-->
             <div class="row">
                 <div class="col s10 offset-s1">
                     <div class="input-field ">
@@ -62,14 +74,13 @@
                     </div>
                 </div>
             </div>
-          
-            <!-- submit button -->
-            <div class="row">
-                <div class="col s12 center-align">
-                    <button type="submit" class="btn-large light-blue darken-1 text-shadow">
-                        Add Recipe <i class="fas fa-plus-square right"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
+        <!--Submit button-->
+    <div class="row col s10 offset-s1">
+        <button class="btn waves-effect waves-light btn-small grey darken-4" type="submit" name="action">Submit</button>
     </div>
+    </form>
+    </div>
+</section>
+
+{% endblock %}
+ 
