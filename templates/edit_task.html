@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section class="container">
-    <div class="row center">
-        <h3>Edit Your Recipe</h3>
-    </div>
-    <div class="row">
-        <form action="{{ url_for('edit_task', task_id=task._id) }}" method="POST" class="col s12">
+
+<h3 class="light-blue-text text-darken-4 center-align">Edit Task</h3>
+
+<div class="row card-panel grey lighten-5">
+    <form class="col s12" method="POST" action="{{ url_for('edit_task', task_id=task._id) }}">
             <!-- Author -->
           
             <!-- recipe name -->
@@ -52,20 +51,18 @@
                     <div class="card background">
                         <div class="card-content">
                             <span class="card-title center">Ingredients</span>
-
                             <div class="addIngredient new-ingredient ingredient">
                                 <div class="input-field whites-4">
                                     {% for ingredient in task.task_ingredients %}
                                     <textarea id="ingredients" placeholder="200g Butter" name="ingredients[]" class="materialize-textarea ingredients validate" minlength="3" maxlength="200" required>{{ ingredient }}</textarea>
-                                 
                                     {% endfor %}
                                 </div>
                             </div>
 
                             <!-- add button -->
-                            <a id="add_ingredient" class="btn waves-effect waves-light light-green"><i class="material-icons">add</i></a>
+                            <a id="add_ingredient" class="btn waves-effect waves-light light-green"><i class="material-icons">Add</i></a>
                             <!-- Remove button -->
-                            <a id="remove_ingredient" class="btn waves-effect waves-light red lighten-2"><i class="fas fa-minus"></i></a>
+                            <a id="remove_ingredient" class="btn waves-effect waves-light red lighten-2">Remove</i></a>
                         </div>
                     </div>
                 </div>
@@ -79,23 +76,30 @@
                             <div class="addpreparation preparation new-step">
                                 <div class="input-field whites-4">
                                     {% for prep in task.task_prep %}
-                                    <textarea id="preparation" name="preparation[]" class="preparation validate materialize-textarea" minlength="5" maxlength="500" required>{{ task.task_prep }}</textarea>
                                     {% endfor %}
-                                   
+                                    <textarea id="preparation" name="preparation[]" class="preparation validate materialize-textarea" minlength="5" maxlength="500" required>{{ task.task_prep }}</textarea>
                                 </div>
                             </div>
+                            
                             <!-- add button -->
                             <a id="add_step" class="btn waves-effect waves-light light-green"><i class="material-icons">add</i></a>
                             <!-- removebutton -->
-                            <a id="remove_step" class="btn waves-effect waves-light red lighten-2"><i class="fas fa-minus"></i></a>
+                            <a id="remove_step" class="btn waves-effect waves-light red lighten-2">Remove</i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--Submit button-->
-            <div class="row col s10 offset-s1">
-                <button class="btn waves-effect waves-light btn-small grey darken-4" type="submit" name="action">Save Changes</button>
-                 <a class="btn  waves-effect btn-small grey darken-4 cancel-form">Cancel</a>
+              <!-- submit button -->
+              <div class="row">
+                <div class="col s12 center-align">
+                    <!-- cancel button -->
+                    <a href="{{ url_for('get_tasks') }}" class="btn-large black text-shadow">
+                        Cancel <i class="fas fa-times-circle right"></i>
+                    </a>
+                    <button type="submit" class="btn-large red darken-1 text-shadow">
+                        Edit Task <i class="fas fa-edit right"></i>
+                    </button>
+                </div>
             </div>
         </form>
     </div>

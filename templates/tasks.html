@@ -3,8 +3,6 @@
 
 <h3>Why don't you take a look at our tastsy treats!</h3>
 
-
-
 <div class="row">
     {% for task in tasks %}
     <div class="col s12 m4">
@@ -19,6 +17,11 @@
             </div>
         </div>
     </div>
+    <div class="collapsible-body">
+        <strong>{{ task.category_name }}</strong>
+        <p>{{ task.task_description }}</p>
+        <p><em>by: {{ task.created_by }}</em></p>
+    </div>
      {% endfor %}
-</div>
+    
 {% endblock %}
