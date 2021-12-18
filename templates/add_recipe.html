@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section>
     <!-- category selection -->
 			<div class="row">
-                <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
+                <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}"></form>
 				<div class="input-field col s12">
-                    <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
-					<select id="category_name" name="category_name" class="validate" required>
+                    <i class="fas fas fa-utensils prefix light-blue-text text-darken-4"></i>
+					<select id="category_name" name="category_name" class="validate">
                         <option value="" disabled selected>Choose Category</option>
                         {% for category in categories %}
                             <option value="{{ category.category_name }}">{{ category.category_name }}</option>
@@ -16,6 +15,7 @@
 					<label for="category_name">Recipe Category</label>
 				</div>
             </div>
+
     <!--Ingredients-->
     <div class="row">
         <div class="col s10 offset-s1">
@@ -51,7 +51,7 @@
                         <div class="input-field whites-4">
                             <input id="preparation" type="text" placeholder="List preparation method one per line"
                                 name="preparation[]" class="preparation validate" minlength="3"
-                                maxlength="600"></textarea>
+                                maxlength="600">
                         </div>
                     </div>
                     <!-- add button -->
@@ -78,15 +78,12 @@
         <!--Submit button-->
         <div class="row">
             <div class="col s12 center-align">
-                <button type="submit" class="btn-large light-blue darken-1 text-shadow">
-                    Add Task <i class="fas fa-plus-square right"></i>
+                <button type="submit" class="btn-large light-green text-shadow">
+                    Add Recipe <i class="fas fa-plus-square right"></i>
                 </button>
             </div>
         </div>
-    
-    </form>
-    </div>
-</section>
+
 
 {% endblock %}
  

@@ -9,6 +9,7 @@
         <div class="card">
             {{ task.category_name }}
             <div class="card-image">
+            
                 <img src="{{ task.image_url }}">
                 <span class="card-title">{{ task.task_name }}</span>
             </div>
@@ -22,6 +23,7 @@
         <p>{{ task.task_description }}</p>
         <p><em>by: {{ task.created_by }}</em></p>
     </div>
+</div>
      {% endfor %}
     
 {% endblock %}

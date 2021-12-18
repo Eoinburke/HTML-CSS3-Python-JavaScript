@@ -1,108 +1,126 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <h3 class="light-blue-text text-darken-4 center-align">Edit Recipe</h3>
 
-<h3 class="light-blue-text text-darken-4 center-align">Edit Task</h3>
-
-<div class="row card-panel grey lighten-5">
-    <form class="col s12" method="POST" action="{{ url_for('edit_task', task_id=task._id) }}">
-            <!-- Author -->
-          
-            <!-- recipe name -->
+    <div class="row card-panel grey lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('edit_task', task_id=task._id) }}">
+            <!-- category selection -->
+			<div class="row">
+				<div class="input-field col s12">
+                    <i class="fas fa-utensils prefix light-blue-text text-darken-4"></i>
+					<select id="category_name" name="category_name" class="validate" required>
+                        <option value="" disabled>Choose Category</option>
+                        {% for category in categories %}
+                            {% if category.category_name == task.category_name %}
+                                <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                            {% else %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+					<label for="category_name">Recipe Category</label>
+				</div>
+			</div>
+            <!-- task name -->
             <div class="row">
-                <div class="input-field col s10 offset-s1">
-                    <h6><strong>Recipe Name:</strong></h6>
-                    <input id="recipe_name" name="recipe_name" type="text" class="validate" value="{{ task.task_name }}" minlength="3" maxlength="30" data-length="30" placeholder="Recipe Name" required="">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                    <input id="task_name" name="task_name" minlength="5" maxlength="50"
+                        value="{{ task.task_name }}" type="text" class="validate" required>
+                    <label for="task_name">Recipe Name</label>
                 </div>
             </div>
-            <!-- Description -->
+            <!-- task description -->
             <div class="row">
-                <div class="input-field col s10 offset-s1">
-                    <h6><strong>Description:</strong></h6>
-                    <textarea id="description" placeholder="Description of your Recipe" name="description" class="materialize-textarea" inlength="20" maxlength="500" data-length="500" required>{{ task.task_discription }}</textarea>
+                <div class="input-field col s12">
+                    <i class="fas fa-align-left prefix light-blue-text text-darken-4"></i>
+                    <textarea id="task_description" name="task_description" minlength="5"
+                        maxlength="200" class="materialize-textarea validate" required>
+                        {{- task.task_description -}}
+                    </textarea>
+                    <label for="task_description">Recipe Description</label>
                 </div>
             </div>
-                
-                    <!-- Cooking Time -->
-                    <div class="col s10 offset-s1 m6 l4">
-                        <div class="input-field">
-                            <i class="fas fa-clock material-icons prefix"></i>
-                            <input id="cooking_time" name="cooking_time" type="number" placeholder="Time in minutes" value="{{ task.task_time }}" class="validate" min="1">
-                            <label>Cooking Time(min)</label>
+               <!-- Cooking Time -->
+               <div class="col s10 offset-s1 m6 l4">
+                <div class="input-field">
+                    <i class="fas fa-clock material-icons prefix"></i>
+                    <input id="cooking_time" name="cooking_time" type="number" placeholder="Time in minutes" value="{{ task.task_time }}" class="validate" min="1">
+                    <label>Cooking Time(min)</label>
+                </div>
+            </div>
+ 
+    <!--Image Url-->
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="input-field ">
+                <i class="fas fa-camera material-icons prefix"></i> {% if task.image_url %}
+                <input id="image_url" name="image_url" class="validate" type="url" minlength="15" value="{{ task.image_url }}" placeholder="Recipe Photo URL"> {% else %}
+                <input id="image_url" name="image_url" class="validate" type="url" minlength="15" placeholder="Recipe Image URL" pattern="https?://.+"> {% endif %}
+                <label for="image_url">Image Url</label>
+            </div>
+        </div>
+    </div>
+    <!--Ingredients-->
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="card background">
+                <div class="card-content">
+                    <span class="card-title center">Ingredients</span>
+                    <div class="addpreparation preparation new-step">
+                        <div class="input-field whites-4">
+                            {% for ingredients in task.task_ingredients %}
+                            {% endfor %}
+                            <textarea id="ingredients" name="ingredients[]" class="ingredients validate materialize-textarea" minlength="5" maxlength="500" required>{{ task.task_ingredients }}</textarea>
                         </div>
                     </div>
+                    
+                    <!-- add button -->
+                    <a id="add_step" class="btn waves-effect waves-light light-green"><i class="material-icons">add</i></a>
+                    <!-- removebutton -->
+                    <a id="remove_step" class="btn waves-effect waves-light red lighten-2">Remove</a>
                 </div>
             </div>
-         
-            <!--Image Url-->
-            <div class="row">
-                <div class="col s10 offset-s1">
-                    <div class="input-field ">
-                        <i class="fas fa-camera material-icons prefix"></i> {% if task.image_url %}
-                        <input id="image_url" name="image_url" class="validate" type="url" minlength="15" value="{{ task.image_url }}" placeholder="Recipe Photo URL"> {% else %}
-                        <input id="image_url" name="image_url" class="validate" type="url" minlength="15" placeholder="Recipe Image URL" pattern="https?://.+"> {% endif %}
-                        <label for="image_url">Image Url</label>
+        </div>
+    </div>
+    <!--Preparation-->
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <div class="card background">
+                <div class="card-content">
+                    <span class="card-title center">Preparation</span>
+                    <div class="addpreparation preparation new-step">
+                        <div class="input-field whites-4">
+                            {% for prep in task.task_prep %}
+                            {% endfor %}
+                            <textarea id="ingredients" name="ingredients[]" class="ingredients validate materialize-textarea" minlength="5" maxlength="500" required>{{ task.task_ingredients }}</textarea>
+                        </div>
                     </div>
+                    
+                    <!-- add button -->
+                    <a id="add_step" class="btn waves-effect waves-light light-green"><i class="material-icons">add</i></a>
+                    <!-- removebutton -->
+                    <a id="remove_step" class="btn waves-effect waves-light red lighten-2">Remove</a>
                 </div>
             </div>
-            <!--Ingredients-->
-            <div class="row">
-                <div class="col s10 offset-s1">
-                    <div class="card background">
-                        <div class="card-content">
-                            <span class="card-title center">Ingredients</span>
-                            <div class="addIngredient new-ingredient ingredient">
-                                <div class="input-field whites-4">
-                                    {% for ingredient in task.task_ingredients %}
-                                    <textarea id="ingredients" placeholder="200g Butter" name="ingredients[]" class="materialize-textarea ingredients validate" minlength="3" maxlength="200" required>{{ ingredient }}</textarea>
-                                    {% endfor %}
-                                </div>
-                            </div>
+        </div>
+    </div>
+        
 
-                            <!-- add button -->
-                            <a id="add_ingredient" class="btn waves-effect waves-light light-green"><i class="material-icons">Add</i></a>
-                            <!-- Remove button -->
-                            <a id="remove_ingredient" class="btn waves-effect waves-light red lighten-2">Remove</i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Preparation-->
+            <!-- submit button -->
             <div class="row">
-                <div class="col s10 offset-s1">
-                    <div class="card background">
-                        <div class="card-content">
-                            <span class="card-title center">Preparation</span>
-                            <div class="addpreparation preparation new-step">
-                                <div class="input-field whites-4">
-                                    {% for prep in task.task_prep %}
-                                    {% endfor %}
-                                    <textarea id="preparation" name="preparation[]" class="preparation validate materialize-textarea" minlength="5" maxlength="500" required>{{ task.task_prep }}</textarea>
-                                </div>
-                            </div>
-                            
-                            <!-- add button -->
-                            <a id="add_step" class="btn waves-effect waves-light light-green"><i class="material-icons">add</i></a>
-                            <!-- removebutton -->
-                            <a id="remove_step" class="btn waves-effect waves-light red lighten-2">Remove</i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-              <!-- submit button -->
-              <div class="row">
                 <div class="col s12 center-align">
                     <!-- cancel button -->
-                    <a href="{{ url_for('get_tasks') }}" class="btn-large black text-shadow">
+                    <a href="{{ url_for('get_tasks') }}" class="btn-large red lighten-2">
                         Cancel <i class="fas fa-times-circle right"></i>
                     </a>
-                    <button type="submit" class="btn-large red darken-1 text-shadow">
+                    <button type="submit" class="btn-large light-green">
                         Edit Task <i class="fas fa-edit right"></i>
                     </button>
                 </div>
             </div>
         </form>
     </div>
-</section>
 
 {% endblock %}

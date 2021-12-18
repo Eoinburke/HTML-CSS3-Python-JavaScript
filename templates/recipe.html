@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section>
+
 
     <!--Ingredients-->
     <div class="row">
@@ -38,7 +38,7 @@
                         <div class="input-field whites-4">
                             <input id="preparation" type="text" placeholder="List preparation method one per line"
                                 name="preparation[]" class="preparation validate" minlength="3"
-                                maxlength="600"></textarea>
+                                maxlength="600">
                         </div>
                     </div>
                     <!-- add button -->
@@ -71,8 +71,7 @@
     <div class="row col s10 offset-s1">
         <button class="btn waves-effect waves-light btn-small grey darken-4" type="submit" name="action">Submit</button>
     </div>
-    </form>
-    </div>
+
      <!-- submit button -->
             <div class="row">
                 <div class="col s12 center-align">
@@ -81,6 +80,6 @@
                     </button>
                 </div>
             </div>
-</section>
+
 
 {% endblock %}

@@ -1,46 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="center-align">Log In</h3>
-
-    <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('login') }}">
-            <div class="card-panel">
-                <!-- username -->
-                <div class="row">
-					<div class="input-field col s12">
-						<i class="fas fa-user-cog prefix light-blue-text text-darken-4"></i>
-						<input id="username" name="username" type="text" minlength="5"
-                            maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
-						<label for="username">Username</label>
-					</div>
+<div class="row">
+    <form class="col s12 m8 offset-m2 l6 offset-l3 center-align" method="POST" action="{{url_for('login')}}">
+        <div class="card-panel grey lighten-4">
+            <div class="title">
+                <h4>Log in to your Buy & Sell account</h4>
+            </div>
+            <!-- flash message -->
+            <div>
+                {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+                <div class="row flashes center-align">
+                    <p class="{{category}} white-text"><i class="fas fa-info-circle"></i> {{ message }}</p>
                 </div>
-                <!-- passowrd -->
-                <div class="row">
-                    <div class="input-field col s12">
-						<i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
-                        <input id="password" name="password" type="password" minlength="5"
-                            maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
-                        <label for="password">Password</label>
-                    </div>
-                </div>
-                <!-- login -->
-                <div class="row">
-                    <button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow">
-                        Log In <i class="fas fa-sign-in-alt"></i>
-                    </button>
+                {% endfor %} {% endif %} {% endwith %}
+            </div>
+            <!-- Username input field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-user prefix"></i>
+                    <input id="username" name="username" type="text" class="validate" required />
+                    <label for="username">Username</label>
                 </div>
             </div>
-        </form>
-    </div>
-
-    <div class="row">
-        <div class="col s12">
-            <p class="center-align">
-                New Here?
-                <a href="{{ url_for('register') }}" class="light-blue-text text-darken-4">Register Account</a>
-            </p>
+            <!-- Password input field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-lock prefix"></i>
+                    <input id="password" name="password" type="password" class="validate" required />
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <!-- Log in button -->
+            <div class="row">
+                <button class="btn waves-effect waves-light green lighten-1" type="submit">Log in</button>
+            </div>
         </div>
-    </div>
-
+        <div class="card-panel grey lighten-2">Do not have an account yet? <a href="{{url_for('register')}}">Register</a></div>
+    </form>
+</div>
 {% endblock %}

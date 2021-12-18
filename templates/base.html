@@ -14,10 +14,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    <title>Delicious</title>
     {% block styles %}
     {% endblock %}
-    <title>Delicious</title>
 </head>
+
+
+
 <body>
 
   <header>
@@ -93,9 +96,8 @@
                             <div class="col-sm-12 col-md-4 footer-links">
                               <h5 class="highlight">Milestone 3</h5>
                                 <ul>
-                                    <li><a href="">Home</a></li>
-                                    <li><a href="">Products</a></li>
-                                    <li><a href="">About Us</a></li>
+                                    <li><a href="{{ url_for('get_tasks') }}">Home</a></li>
+                                    
                                   </ul>
                                   <div class="social-links">
                                       <a href="https://www.facebook.com/" class="facebook" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -104,16 +106,6 @@
                                   </div>
                             </div>
                             
-                                <div class="col-sm-12 col-md-4 service-links">
-                                  <h6 class= "highlight">Services</h6>
-                                  <ul>
-                                     
-                                      <li><a href="">Return Policy</a></li>
-                                      <li><a href="">Delivery Policy</a></li>
-                                      <li><a href="">Frequently Asked Questions</a></li>
-                                      <li><a href="">Contact Us</a></li>
-                                    </ul>
-                                </div>
                           </div>
                 </div>
             </div>

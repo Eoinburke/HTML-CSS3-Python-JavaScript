@@ -138,7 +138,6 @@ def add_recipe():
     return render_template("add_recipe.html", categories=categories)
 
 
-
 @app.route("/edit_task/<task_id>", methods=["GET", "POST"])
 def edit_task(task_id):
     if request.method == "POST":
@@ -146,10 +145,14 @@ def edit_task(task_id):
             "category_name": request.form.get("category_name"),
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
+            "task_ingredients": request.form.get("task_ingredients"),
+            "task_prep": request.form.get("task_prep"),
             "created_by": session["user"]
         }
-        mongo.db.tasks.update({"_id": ObjectId(task_id)}, submit)
+
+        mongo.db.tasks.update_one({"_id": ObjectId(task_id)}, { "$set": submit })
         flash("Task Successfully Updated")
+        return redirect(url_for("view_task", task_id=task_id))
 
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
@@ -166,4 +169,4 @@ def delete_task(task_id):
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)
