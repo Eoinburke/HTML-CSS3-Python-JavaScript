@@ -57,19 +57,19 @@ height: 200px;
   }
 
   .fa-facebook:hover {
-      color: blue;
+      color: white;
       font-size: 2em;
       margin: 3px;
   }
 
   .fa-twitter:hover {
-      color: #00acee;
+      color: white;
       font-size: 2em;
       margin: 3px;
   }
 
   .fa-linkedin:hover {
-      color: #0077b5;
+      color: white;
       font-size: 2em;
       margin: 3px;
   }
@@ -81,11 +81,8 @@ height: 200px;
 
 }
 
-
-
-
 #footer {
-    background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
+    background: linear-gradient(110deg, #00b7eb 60%, #ffed4b 60%);
     color: white;
     padding-top: 30px;
 }
@@ -93,29 +90,14 @@ height: 200px;
 footer li {
     list-style: none;
 }
-footer li a{
-    color: gray;
+footer li a {
+    color: white;
     text-decoration:none; 
 }
-footer li a:hover{
-    color: blanchedalmond; 
+footer li a:hover {
+    color: white; 
     text-decoration:none; 
 }
-
-/* footer fa-facebook:hover{
-    color: blue;
-    font-size: 1.5em;
-}
-
-footer fa-twitter:hover {
-    color: #00acee;
-    font-size: 1.5em;
-}
-
-footer fa-linkedin:hover {
-color: #0077b5;
-font-size: 1.5em;
-} */
 
 footer ul {
     padding: 0;

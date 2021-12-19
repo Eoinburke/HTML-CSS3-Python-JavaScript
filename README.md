@@ -295,9 +295,17 @@ The following validation services were used to check the validity of the website
 
   Unfortunately the W3C Validator for HTML does not understand the Jinja templating syntax, so it therefore shows a lot of errors with regards to {{ variables }}, {% for %} {% endfor %}, etc. Aside from the Jinja warnings and errors, all of the remaining code is perfectly validating. Also due to the Jinja templating, certain elements cannot be 'beautified' across multiple lines, and must remain on a single line.
   
-* [W3C CSS validation](https://jigsaw.w3.org/css-validator/) was used to validate **CSS**.
+* [W3C CSS validation](https://jigsaw.w3.org/css-validator/) was used to validate **CSS** and there were no errors.
 
 *  [PEP8 Online](http://pep8online.com/) was used to validate Python.
+
+* [jshint](https://jshint.com/) was used to validate the Javascript and showed no errors.
+
+#### Problems and bugs
+
+* While I was implanting the edit and delete button I was trying to add in this piece of code 
+**{% if session.username|lower  == task.created_by|lower  %}** which would display the buttons to logged in users. After having multiple sessions with tutors and a lot of googling I was unable to add it successfully.
+
         
 
 #### Responsiveness 
