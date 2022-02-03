@@ -91,16 +91,16 @@ I used MongoDB for my database it was good to get experience using NoSQL databas
 
 The database is made up of the following collections
 
-**tasks**
+**recipes**
 
       id: <ObjectId>
       category_name: <string>
-      task_name: <string>
-      task_ingredients: <Array>
+      recipe_name: <string>
+      recipe_ingredients: <Array>
       image_url:<string>
-      task_prep: <Array>
-      task_difficulty: <String>
-      task_time: <String>
+      recipe_prep: <Array>
+      recipe_difficulty: <String>
+      recipe_time: <String>
 
 **users**
 
@@ -304,7 +304,7 @@ The following validation services were used to check the validity of the website
 #### Problems and bugs
 
 * While I was implanting the edit and delete button I was trying to add in this piece of code 
-**{% if session.username|lower  == task.created_by|lower  %}** which would display the buttons to logged in users. After having multiple sessions with tutors and a lot of googling I was unable to add it successfully.
+**{% if session.username|lower  == recipe.created_by|lower  %}** which would display the buttons to logged in users. After having multiple sessions with tutors and a lot of googling I was unable to add it successfully.
 
         
 

@@ -69,7 +69,7 @@
                 <div class="col s10 offset-s1">
                     <div class="input-field ">
                         <i class="fas fa-camera material-icons prefix"></i> {% if image_url %}
-                        <input id="image_url" name="image_url" class="validate" type="url" minlength="15" value="{{ task.image_url }}" placeholder="Recipe Photo URL"> {% else %}
+                        <input id="image_url" name="image_url" class="validate" type="url" minlength="15" value="{{ recipe.image_url }}" placeholder="Recipe Photo URL"> {% else %}
                         <input id="image_url" name="image_url" class="validate" type="url" minlength="15" placeholder="Recipe Image URL" pattern="https?://.+"> {% endif %}
                         <label for="image_url">Image Url</label>
                     </div>

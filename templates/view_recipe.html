@@ -4,25 +4,25 @@
     <div class="col s12 offset-s2 m5 offset-m1 left-align">
         <div>
             <p> <i class="fas fa-clock icon-color"></i> Cooking Time:
-                <span>{{task.task_time}}</span>
+                <span>{{recipe.recipe_time}}</span>
             </p>
         </div>
         <div>
             <p> <i class="fas fa-fire icon-color"> </i> Difficulty:
-                <span>{{task.task_difficulty}}</span>
+                <span>{{recipe.recipe_difficulty}}</span>
             </p>
         </div>
     </div>
     <div class="col s12 offset-s2 m5 left-align">
         <div>
-            <p> <i class="fas fa-utensils icon-color"></i> Category: <span class="">{{task.category_name}}</span>
+            <p> <i class="fas fa-utensils icon-color"></i> Category: <span class="">{{recipe.category_name}}</span>
             </p>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col s12 offset-s1 recipe-description">
-        <p><span class="">{{ task.task_discription }}</span></p>
+        <p><span class="">{{ recipe.recipe_discription }}</span></p>
     </div>
 </div>
 
@@ -37,7 +37,7 @@
                             <h5>Ingredients</h5>
                             <br>
                             <ul>
-                                {% for ingredients in task.task_ingredients %}
+                                {% for ingredients in recipe.recipe_ingredients %}
                                 <li><i class="fas fa-square fa-sm square" aria-hidden="true"></i>
                                     {{ ingredients }}
                                 </li>
@@ -53,7 +53,7 @@
                             <h5 class="center">Preparation</h5>
                             <br>
                             <ol id="preparation-list">
-                                {% for prep in task.task_prep %}
+                                {% for prep in recipe.recipe_prep %}
                                 <li>
                                     {{ prep }}
                                 </li>
@@ -70,20 +70,20 @@
 <div class="col s3">
     {% if "username" in session %}
     {{ session.username }}
-    {{ task.created_by }}
-    {{ task.task_difficulty }}
+    {{ recipe.created_by }}
+    {{ recipe.recipe_difficulty }}
     {% else %}
   
     {% endif %} 
-    {% if session.username|lower  == task.created_by|lower  %}
-    <a href="{{ url_for('delete_task', task_id=task._id) }}" class="btn-small red lighten-2">delete</a>
-    <a href="{{ url_for('edit_task', task_id=task._id) }}" class="btn-small green lighten-1">Edit</a>
+    {% if session.username|lower  == recipe.created_by|lower  %}
+    <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn-small red lighten-2">delete</a>
+    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn-small green lighten-1">Edit</a>
     {% endif %}
 
 <div class="collapsible-body">
-    <strong>{{ task.category_name }}</strong>
-    <p>{{ task.task_description }}</p>
-    <p><em>by: {{ task.created_by }}</em></p>
+    <strong>{{ recipe.category_name }}</strong>
+    <p>{{ recipe.recipe_description }}</p>
+    <p><em>by: {{ recipe.created_by }}</em></p>
 </div>
 
 

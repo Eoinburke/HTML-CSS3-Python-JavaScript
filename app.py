@@ -19,10 +19,10 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/get_tasks")
-def get_tasks():
-    tasks = list(mongo.db.tasks.find())
-    return render_template("tasks.html", tasks=tasks)
+@app.route("/get_recipes")
+def get_recipes():
+    recipes = list(mongo.db.recipes.find())
+    return render_template("recipes.html", recipes=recipes)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -114,56 +114,56 @@ def recipe():
     return render_template("recipe.html")
 
 
-@app.route("/view_task/<task_id>", methods=["GET", "POST"])
-def view_task(task_id):
-    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+@app.route("/view_recipe/<recipe_id>", methods=["GET", "POST"])
+def view_recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("view_task.html", task=task, categories=categories)
+    return render_template("view_recipe.html", recipe=recipe, categories=categories)
 
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
-        task = {
+        recipe = {
             "category_name": request.form.get("category_name"),
-            "task_name": request.form.get("task_name"),
-            "task_discription": request.form.get("task_discription"),
+            "recipe_name": request.form.get("recipe_name"),
+            "recipe_discription": request.form.get("recipe_discription"),
             "image_url": request.form.get("image_url"),
             "created_by": session["user"]
         }
-        mongo.db.tasks.insert_one(task)
-        flash("Task Successfully Added")
-        return redirect(url_for("get_tasks"))
+        mongo.db.recipes.insert_one(recipe)
+        flash("Recipe Successfully Added")
+        return redirect(url_for("get_recipes"))
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("add_recipe.html", categories=categories)
 
 
-@app.route("/edit_task/<task_id>", methods=["GET", "POST"])
-def edit_task(task_id):
+@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
     if request.method == "POST":
         submit = {
             "category_name": request.form.get("category_name"),
-            "task_name": request.form.get("task_name"),
-            "task_description": request.form.get("task_description"),
-            "task_ingredients": request.form.get("task_ingredients"),
-            "task_prep": request.form.get("task_prep"),
+            "recipe_name": request.form.get("recipe_name"),
+            "recipe_description": request.form.get("recipe_description"),
+            "recipe_ingredients": request.form.get("recipe_ingredients"),
+            "recipe_prep": request.form.get("recipe_prep"),
             "created_by": session["user"]
         }
 
-        mongo.db.tasks.update_one({"_id": ObjectId(task_id)}, { "$set": submit })
-        flash("Task Successfully Updated")
-        return redirect(url_for("view_task", task_id=task_id))
+        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, { "$set": submit })
+        flash("Recipe Successfully Updated")
+        return redirect(url_for("view_recipe", recipe_id=recipe_id))
 
-    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("edit_task.html", task=task, categories=categories)
+    return render_template("edit_recipe.html", recipe=recipe, categories=categories)
 
 
-@app.route("/delete_task/<task_id>")
-def delete_task(task_id):
-    mongo.db.tasks.delete_one({"_id": ObjectId(task_id)})
-    flash("Task Successfully Deleted")
-    return redirect(url_for("get_tasks"))
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+    flash("Recipe Successfully Deleted")
+    return redirect(url_for("get_recipes"))
 
 
 if __name__ == "__main__":
