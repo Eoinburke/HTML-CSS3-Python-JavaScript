@@ -27,65 +27,56 @@
 </div>
 
 
-    <section id="Ingredients-Preparation">
-        <div class="container">
-            <div class="row">
-                <!-- ingredients -->
-                <div class="col s12 m4 offset-s1 ingredients">
-                    <div class="row">
-                        <div class="col s12 ingredients">
-                            <h5>Ingredients</h5>
-                            <br>
-                            <ul>
-                                {% for ingredients in recipe.recipe_ingredients %}
-                                <li><i class="fas fa-square fa-sm square" aria-hidden="true"></i>
-                                    {{ ingredients }}
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
+<section id="Ingredients-Preparation">
+    <div class="container">
+        <div class="row">
+            <!-- ingredients -->
+            <div class="col s12 m4 offset-s1 ingredients">
+                <div class="row">
+                    <div class="col s12 ingredients">
+                        <h5>Ingredients</h5>
+                        <br>
+                        <ul>
+                            {% for ingredients in recipe.recipe_ingredients %}
+                            <li><i class="fas fa-square fa-sm square" aria-hidden="true"></i>
+                                {{ ingredients }}
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
-                <!-- Preparation -->
-                <div class="col s12 offset-m1  m7 preparation z-depth-1">
-                    <div class="row">
-                        <div class="col s12">
-                            <h5 class="center">Preparation</h5>
-                            <br>
-                            <ol id="preparation-list">
-                                {% for prep in recipe.recipe_prep %}
-                                <li>
-                                    {{ prep }}
-                                </li>
-                                {% endfor %}
-                            </ol>
-                        </div>
+            </div>
+            <!-- Preparation -->
+            <div class="col s12 offset-m1  m7 preparation z-depth-1">
+                <div class="row">
+                    <div class="col s12">
+                        <h5 class="center">Preparation</h5>
+                        <br>
+                        <ol id="preparation-list">
+                            {% for prep in recipe.recipe_prep %}
+                            <li>
+                                {{ prep }}
+                            </li>
+                            {% endfor %}
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
 
 <div class="col s3">
-    {% if "username" in session %}
-    {{ session.username }}
-    {{ recipe.created_by }}
-    {{ recipe.recipe_difficulty }}
-    {% else %}
-  
-    {% endif %} 
-    {% if session.username|lower  == recipe.created_by|lower  %}
+    {% if (session.user == recipe.created_by) or (session.user == "admin") %}
     <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn-small red lighten-2">delete</a>
     <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn-small green lighten-1">Edit</a>
     {% endif %}
 
-<div class="collapsible-body">
-    <strong>{{ recipe.category_name }}</strong>
-    <p>{{ recipe.recipe_description }}</p>
-    <p><em>by: {{ recipe.created_by }}</em></p>
+    <div class="collapsible-body">
+        <strong>{{ recipe.category_name }}</strong>
+        <p>{{ recipe.recipe_description }}</p>
+        <p><em>by: {{ recipe.created_by }}</em></p>
+    </div>
 </div>
-
-
 
 {% endblock %}
