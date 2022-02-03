@@ -93,6 +93,11 @@ def profile(username):
 
 @app.route("/logout")
 def logout():
+    # If not user in session Redirect to get_recipes
+    if not is_authenticated():
+        flash("You are currently not logged in")
+        return redirect(url_for('get_recipes'))
+
     # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")
@@ -200,9 +205,25 @@ def edit_category(category_id):
 
 @app.route("/delete_category/<category_id>")
 def delete_category(category_id):
+    if not is_admin_authenticated():
+        flash("You do not have privallage to delete category") 
+        return redirect(url_for("get_recipes"))
+
     mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
     flash("Category Removed")
     return redirect(url_for("get_categories"))
+
+
+def is_authenticated():
+    """ Ensure that user is authenticated
+    """
+    return 'user' in session
+
+
+def is_admin_authenticated():
+    """ Ensure that admin is authenticated
+    """
+    return is_authenticated() and session['user'] == 'admin'
 
 
 if __name__ == "__main__":
