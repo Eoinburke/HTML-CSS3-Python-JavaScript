@@ -12,10 +12,10 @@
             {{ recipe.category_name }}
             <div class="card-image">
                 <img src="{{ recipe.image_url }}">
-                <span class="card-title">{{ recipe.recipe_name }}</span>
-            </div>
-            <div class="card-action">
-                <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">This is a link</a>
+               
+                <span class="card-title">
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">{{ recipe.recipe_name }}</a>
+                </span>
             </div>
         </div>
     </div>
