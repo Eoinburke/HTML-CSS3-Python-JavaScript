@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, abort)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -121,13 +121,20 @@ def recipe():
 
 @app.route("/view_recipe/<recipe_id>", methods=["GET", "POST"])
 def view_recipe(recipe_id):
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if not is_object_id_valid(recipe_id):
+        abort(404)
+    recipe = mongo.db.recipes.find_one_or_404({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("view_recipe.html", recipe=recipe, categories=categories)
 
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
+
+    if not is_authenticated():
+        flash("You are currently not logged in")
+        return redirect(url_for('get_recipes'))
+
     if request.method == "POST":
         recipe = {
             "category_name": request.form.get("category_name"),
@@ -148,6 +155,16 @@ def add_recipe():
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
+
+    if not is_authenticated():
+        flash("You are currently not logged in")
+        return redirect(url_for('get_recipes'))
+
+    if not is_object_id_valid(recipe_id):
+        abort(404)
+
+    recipe = mongo.db.recipes.find_one_or_404({"_id": ObjectId(recipe_id)})
+
     if request.method == "POST":
         recipe = {
             "category_name": request.form.get("category_name"),
@@ -164,13 +181,25 @@ def edit_recipe(recipe_id):
         flash("Recipe Successfully Updated")
         return redirect(url_for("view_recipe", recipe_id=recipe_id))
 
-    recipe = mongo.db.recipes.find_one_or_404({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_recipe.html", recipe=recipe, categories=categories)
 
 
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
+    
+    if not is_authenticated():
+        flash("You are currently not logged in")
+        return redirect(url_for('get_recipes'))
+
+    if not is_object_id_valid(recipe_id):
+        abort(404)
+
+    recipe = mongo.db.recipes.find_one_or_404({"_id": ObjectId(recipe_id)})
+    if recipe['created_by'] != get_session_user():
+        flash("You have not permission to execute that operation")
+        return redirect(url_for('get_recipes'))
+
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
     return redirect(url_for("get_recipes"))
@@ -178,12 +207,20 @@ def delete_recipe(recipe_id):
 
 @app.route("/get_categories")
 def get_categories():
+    if not is_admin_authenticated():
+        flash("You do not have privilege to list category") 
+        return redirect(url_for("get_recipes"))
+
     categories = list(mongo.db.categories.find().sort("category_name", 1))
     return render_template("categories.html", categories=categories)
 
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
+    if not is_admin_authenticated():
+        flash("You do not have privilege to add category") 
+        return redirect(url_for("get_recipes"))
+
     if request.method == "POST":
         category = {
             "category_name": request.form.get("category_name")
@@ -196,6 +233,15 @@ def add_category():
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
+    if not is_admin_authenticated():
+        flash("You do not have privilege to edit category") 
+        return redirect(url_for("get_recipes"))
+
+    if not is_object_id_valid(recipe_id):
+        abort(404)
+
+    category = mongo.db.categories.find_one_or_404({"_id": ObjectId(category_id)})
+
     if request.method == "POST":
         submit = {
             "category_name": request.form.get("category_name")
@@ -204,16 +250,19 @@ def edit_category(category_id):
         flash("Category Updated")
         return redirect(url_for("get_categories"))
 
-    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
     return render_template("edit_category.html", category=category)
 
 
 @app.route("/delete_category/<category_id>")
 def delete_category(category_id):
     if not is_admin_authenticated():
-        flash("You do not have privallage to delete category") 
+        flash("You do not have privilege to delete category") 
         return redirect(url_for("get_recipes"))
 
+    if not is_object_id_valid(recipe_id):
+        abort(404)
+
+    mongo.db.categories.find_one_or_404({"_id": ObjectId(recipe_id)})
     mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
     flash("Category Removed")
     return redirect(url_for("get_categories"))
@@ -246,6 +295,12 @@ def is_admin_authenticated():
     """ Ensure that admin is authenticated
     """
     return is_authenticated() and session['user'] == 'admin'
+
+
+def is_object_id_valid(id_value):
+    """ Validate is the id_value is a valid ObjectId
+    """
+    return id_value != "" and ObjectId.is_valid(id_value)
 
 
 if __name__ == "__main__":
