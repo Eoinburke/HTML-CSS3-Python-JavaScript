@@ -76,65 +76,63 @@
                 <div class="card background">
                     <div class="card-content">
                         <span class="card-title center">Ingredients</span>
+                        {% for ingredient in recipe.ingredients %}
                         <div class="addIngredient new-ingredient ingredient">
-                            {% for ingredient in recipe.ingredients %}
                             <div class="input-field whites-4">
                                 <input id="ingredients" type="text" placeholder="1 tomato, chopped" name="ingredients[]"
                                     class="ingredients validate" minlength="1" maxlength="100" value="{{ ingredient }}"
                                     required>
                             </div>
-                            {% endfor %}
                         </div>
-                    </div>
-                </div>
-
-                <!-- add button -->
-                <a id="add_ingredient" class="btn waves-effect waves-light light-green"><i
-                        class="material-icons">add</i></a>
-                <!-- Remove button -->
-                <a id="remove_ingredient" class="btn waves-effect waves-light red lighten-2"><i
-                        class="fas fa-minus"></i></a>
-            </div>
-        </div>
-</div>
-</div>
-<!--Preparation-->
-<div class="row">
-    <div class="col s10 offset-s1">
-        <div class="card background">
-            <div class="card-content">
-                <span class="card-title center">Preparation</span>
-                <div class="addpreparation preparation new-step">
-                    <div class="input-field whites-4">
-                        {% for prep in recipe.preparation %}
-                        <input id="preparation" type="text" placeholder="List preparation method one per line"
-                            name="preparation[]" class="preparation validate" minlength="3" maxlength="100"
-                            value="{{ prep }}">
                         {% endfor %}
+                        <!-- add button -->
+                        <a id="add_ingredient" class="btn waves-effect waves-light light-green"><i
+                                class="material-icons">add</i></a>
+                        <!-- Remove button -->
+                        <a id="remove_ingredient" class="btn waves-effect waves-light red lighten-2"><i
+                                class="fas fa-minus"></i></a>
                     </div>
                 </div>
-
-                <!-- add button -->
-                <a id="add_step" class="btn waves-effect waves-light light-green"><i class="material-icons">add</i></a>
-                <!-- removebutton -->
-                <a id="remove_step" class="btn waves-effect waves-light red lighten-2">Remove</a>
             </div>
         </div>
-    </div>
-</div>
-<!-- submit button -->
-<div class="row">
-    <div class="col s12 center-align">
-        <!-- cancel button -->
-        <a href="{{ url_for('get_recipes') }}" class="btn-large red lighten-2">
-            Cancel <i class="fas fa-times-circle right"></i>
-        </a>
-        <button type="submit" class="btn-large light-green">
-            Save recipe <i class="fas fa-edit right"></i>
-        </button>
-    </div>
-</div>
-</form>
+        <!--Preparation-->
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <div class="card background">
+                    <div class="card-content">
+                        <span class="card-title center">Preparation</span>
+                        {% for prep in recipe.preparation %}
+                        <div class="addpreparation preparation new-step">
+                            <div class="input-field whites-4">
+                                <input id="preparation" type="text" placeholder="List preparation method one per line"
+                                    name="preparation[]" class="preparation validate" minlength="3" maxlength="100"
+                                    value="{{ prep }}" required>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <!-- add button -->
+                        <a id="add_step" class="btn waves-effect waves-light light-green"><i
+                                class="material-icons">add</i></a>
+                        <!-- remove button -->
+                        <a id="remove_step" class="btn waves-effect waves-light red lighten-2"><i
+                                class="fas fa-minus"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- submit button -->
+        <div class="row">
+            <div class="col s12 center-align">
+                <!-- cancel button -->
+                <a href="{{ url_for('get_recipes') }}" class="btn-large red lighten-2">
+                    Cancel <i class="fas fa-times-circle right"></i>
+                </a>
+                <button type="submit" class="btn-large light-green">
+                    Save recipe <i class="fas fa-edit right"></i>
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
 
 {% endblock %}

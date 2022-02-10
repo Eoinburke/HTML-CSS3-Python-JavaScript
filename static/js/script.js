@@ -42,4 +42,14 @@ $(document).ready(function () {
         /* increase counter so original direction is never removed */
         preparationField += 1;
     });
+
+    /* delete last cloned item */
+    $("#remove_step").on("click", function () {
+        if ( preparationField > 1) {
+            /* only remove the :last item */
+            $(this).siblings(".new-step:last").remove();
+            /* ensure original direction line never gets deleted */
+            preparationField-= 1;
+        }
+    });
 });
