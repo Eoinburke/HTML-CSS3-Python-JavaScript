@@ -17,9 +17,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-
-
-
+    
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
@@ -133,9 +131,13 @@ def add_recipe():
     if request.method == "POST":
         recipe = {
             "category_name": request.form.get("category_name"),
-            "recipe_name": request.form.get("recipe_name"),
-            "recipe_description": request.form.get("recipe_description"),
+            "name": request.form.get("name"),
+            "description": request.form.get("description"),
             "image_url": request.form.get("image_url"),
+            "preparation": request.form.getlist('preparation[]'),
+            "ingredients": request.form.getlist('ingredients[]'),
+            "cooking_time": request.form.get("cooking_time"),
+            "created_by": get_session_user()
         }
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe Successfully Added")
@@ -147,19 +149,22 @@ def add_recipe():
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
-        submit = {
+        recipe = {
             "category_name": request.form.get("category_name"),
-            "recipe_name": request.form.get("recipe_name"),
-            "recipe_description": request.form.get("recipe_description"),
-            "recipe_ingredients": request.form.get("recipe_ingredients"),
-            "recipe_prep": request.form.get("recipe_prep"),
+            "name": request.form.get("name"),
+            "description": request.form.get("description"),
+            "image_url": request.form.get("image_url"),
+            "preparation": request.form.getlist('preparation[]'),
+            "ingredients": request.form.getlist('ingredients[]'),
+            "cooking_time": request.form.get("cooking_time"),
+            "created_by": get_session_user()
         }
 
-        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, { "$set": submit })
+        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, { "$set": recipe })
         flash("Recipe Successfully Updated")
         return redirect(url_for("view_recipe", recipe_id=recipe_id))
 
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    recipe = mongo.db.recipes.find_one_or_404({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_recipe.html", recipe=recipe, categories=categories)
 
@@ -225,6 +230,10 @@ def page_not_found(error):
 @app.errorhandler(500)
 def internal_server(error):
     return render_template('500.html'), 500
+
+
+def get_session_user():
+    return session['user']
 
 
 def is_authenticated():

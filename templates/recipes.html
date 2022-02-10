@@ -3,8 +3,6 @@
 
 <h3>Why don't you take a look at our tastsy treats!</h3>
 
-
-
 <div class="row">
     {% for recipe in recipes %}
     <div class="col s12 m4">
@@ -14,14 +12,14 @@
                 <img src="{{ recipe.image_url }}">
                
                 <span class="card-title">
-                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">{{ recipe.recipe_name }}</a>
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">{{ recipe.name }}</a>
                 </span>
             </div>
         </div>
     </div>
     <div class="collapsible-body">
         <strong>{{ recipe.category_name }}</strong>
-        <p>{{ recipe.recipe_description }}</p>
+        <p>{{ recipe.description }}</p>
         <p><em>by: {{ recipe.created_by }}</em></p>
     </div>
      {% endfor %}

@@ -2,31 +2,27 @@
 {% block content %}
 <div class="row">
     <div class="col s12 offset-s2 m5 offset-m1 left-align">
+        <h3>{{ recipe.name }}</h3>
+    </div>
+    <div class="col s12 offset-s2 m5 offset-m1 left-align">
         <div>
             <p> <i class="fas fa-clock icon-color"></i> Cooking Time:
-                <span>{{recipe.recipe_time}}</span>
-            </p>
-        </div>
-        <div>
-            <p> <i class="fas fa-fire icon-color"> </i> Difficulty:
-                <span>{{recipe.recipe_difficulty}}</span>
+                <span>{{ recipe.cooking_time }}</span>
             </p>
         </div>
     </div>
     <div class="col s12 offset-s2 m5 left-align">
         <div>
-            <p> <i class="fas fa-utensils icon-color"></i> Category: <span class="">{{recipe.category_name}}</span>
+            <p> <i class="fas fa-utensils icon-color"></i> Category: <span class="">{{ recipe.category_name }}</span>
             </p>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col s12 offset-s1 recipe-description">
-        <p><span class="">{{ recipe.recipe_discription }}</span></p>
+        <p><span class="">{{ recipe.discription }}</span></p>
     </div>
 </div>
-
-
 <section id="Ingredients-Preparation">
     <div class="container">
         <div class="row">
@@ -37,9 +33,9 @@
                         <h5>Ingredients</h5>
                         <br>
                         <ul>
-                            {% for ingredients in recipe.recipe_ingredients %}
+                            {% for ingredient in recipe.ingredients %}
                             <li><i class="fas fa-square fa-sm square" aria-hidden="true"></i>
-                                {{ ingredients }}
+                                {{ ingredient }}
                             </li>
                             {% endfor %}
                         </ul>
@@ -53,7 +49,7 @@
                         <h5 class="center">Preparation</h5>
                         <br>
                         <ol id="preparation-list">
-                            {% for prep in recipe.recipe_prep %}
+                            {% for prep in recipe.preparation %}
                             <li>
                                 {{ prep }}
                             </li>
@@ -74,7 +70,7 @@
 
     <div class="collapsible-body">
         <strong>{{ recipe.category_name }}</strong>
-        <p>{{ recipe.recipe_description }}</p>
+        <p>{{ recipe.description }}</p>
         <p><em>by: {{ recipe.created_by }}</em></p>
     </div>
 </div>
